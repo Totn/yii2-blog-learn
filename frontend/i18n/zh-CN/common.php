@@ -8,5 +8,9 @@ return [
     'Signup'  => '上船',
 
     'Login'   => '出海',
-    'Logout'  => '上岸'
+    'Logout'  => '上岸',
+
+    'Username' => '你的名字',
+    'Email'    => '电子邮箱',
+    'Password' => '密码',
 ];

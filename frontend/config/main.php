@@ -14,7 +14,7 @@ return [
     'language' => 'zh-CN',
     'components' => [
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'common\models\UserModel',
             'enableAutoLogin' => true,
         ],
         'log' => [
