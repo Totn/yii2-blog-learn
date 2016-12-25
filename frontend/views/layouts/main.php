@@ -34,26 +34,61 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
+
+    // 链接移到左边
+    $leftMenus = [
         ['label' => Yii::t('common', 'Home'), 'url' => ['/site/index']],
-        ['label' => Yii::t('common', 'About'), 'url' => ['/site/about']],
-        ['label' => Yii::t('common', 'Contact'), 'url' => ['/site/contact']],
+        ['label' => Yii::t('common', 'Post'), 'url' => ['/post/index']],
+
     ];
+
+    // $menuItems = [
+    //     ['label' => Yii::t('common', 'Home'), 'url' => ['/site/index']],
+    //     ['label' => Yii::t('common', 'About'), 'url' => ['/site/about']],
+    //     ['label' => Yii::t('common', 'Contact'), 'url' => ['/site/contact']],
+    // ];
+    $menuItems = [];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => Yii::t('common', 'Signup'), 'url' => ['/site/signup']];
         $menuItems[] = ['label' => Yii::t('common', 'Login'), 'url' => ['/site/login']];
     } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                Yii::t('common', 'Logout') . ' (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link']
-            )
-            . Html::endForm()
-            . '</li>';
+        // $menuItems[] = '<li>'
+        //     . Html::beginForm(['/site/logout'], 'post')
+        //     . Html::submitButton(
+        //         Yii::t('common', 'Logout') . ' (' . Yii::$app->user->identity->username . ')',
+        //         ['class' => 'btn btn-link']
+        //     )
+        //     . Html::endForm()
+        //     . '</li>';
+        $menuItems[] = [
+            'label' => '<img src="' . Yii::$app->params['avatar']['small'] . '" alt="' . Yii::$app->user->identity->username . '">',
+            'url' => ['/site/logout'],
+            'linkOptions' => [
+                'class' => 'avatar',
+            ],
+            'items' => [
+                [
+                    'label' => '<i class="fa fa-sign-out"></i>' . Yii::t('common', 'Logout'),
+                    'url' => ['/site/logout'],
+                    'linkOptions' => ['data-method' => 'post'],
+                ],
+                [
+                    'label' => Yii::t('common', 'Center'),
+                    'url' => ['/user/index'],
+                ],
+            ],
+
+        ];
     }
+
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-left'],
+        'items' => $leftMenus,
+    ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
+        'encodeLabels' => false,
         'items' => $menuItems,
     ]);
     NavBar::end();

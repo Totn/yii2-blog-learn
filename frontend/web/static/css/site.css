@@ -109,3 +109,14 @@ a.desc:after {
 .nav > li > form > button:hover {
     text-decoration: none;
 }
+
+.navbar-right > li > a.avatar {
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-right > li > a.avatar img {
+    border: #ccc solid 1px;
+    width: 32px;
+    height: 32px;
+}

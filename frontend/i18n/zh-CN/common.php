@@ -13,4 +13,7 @@ return [
     'Username' => '你的名字',
     'Email'    => '电子邮箱',
     'Password' => '密码',
+
+    'Post' => '航海听闻',
+    'Center' => '会员中心',
 ];
