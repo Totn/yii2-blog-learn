@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\controllers\base\BaseController;
 use frontend\models\PostForm;
+use common\models\CatsModel;
 /**
 * 文章控制器
 */
@@ -27,8 +28,8 @@ class PostController extends BaseController
     public function actionCreate()
     {
         $model = new PostForm();
-
-        return $this->render('create', ['model' => $model]);
+        $cats  = CatsModel::getAllCats();
+        return $this->render('create', ['model' => $model, 'cats' => $cats]);
     }
 }
 

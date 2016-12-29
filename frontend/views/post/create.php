@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'title')->textinput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'cat_id')->textinput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'cat_id')->dropDownList($cats) ?>
 
             <?= $form->field($model, 'label_img')->textinput(['maxlength' => true]) ?>
 

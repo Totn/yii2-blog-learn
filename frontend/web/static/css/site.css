@@ -120,3 +120,24 @@ a.desc:after {
     width: 32px;
     height: 32px;
 }
+
+.page-header {
+    margin-top: 0px
+}
+
+.page-header h1 {
+    font-size: 18px;
+    margin: 4px 0;
+    display: inline-block;
+}
+
+.box-title {
+    color: #333;
+    font-size: 18px;
+    border-bottom: 2px solid #cbcbcb;
+    padding-bottom: 5px;
+}
+
+.panel-body {
+    padding: 15px 0 5px 0;
+}

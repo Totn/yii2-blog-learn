@@ -6,6 +6,7 @@ return [
     'Label Img' => '标签图',
     'Content'   => '内容',
     'Cate ID'   => '分类',
+    'Cat Name'  => '分类名称',
     'Tags'      => '标签',
 ]
 ?>
