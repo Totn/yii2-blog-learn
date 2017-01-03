@@ -1,6 +1,7 @@
 <?php 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\web\web\UploadedFile;
 
 $this->title = "创建";
 $this->params['breadcrumbs'][] = ['label' => '文章', 'url' => ['post/index']];
@@ -13,13 +14,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <span><?= $this->title ?>文章</span>
         </div>
         <div class="panel-body">
-            <?php $form = ActiveForm::begin() ?>            
+            <?php $form = ActiveForm::begin([
+                'options' => ['enctype' => 'multipart/form-data']
+            ]) ?>            
 
             <?= $form->field($model, 'title')->textinput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'cat_id')->dropDownList($cats) ?>
 
-            <?= $form->field($model, 'label_img')->textinput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'label_img')->fileInput() ?>
 
             <?= $form->field($model, 'content')->textinput(['maxlength' => true]) ?>
 
