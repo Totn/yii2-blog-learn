@@ -49,6 +49,8 @@ class PostController extends BaseController
     public function actionCreate()
     {
         $model = new PostForm();
+        $model->setScenario = PostForm::SCENARIOS_CREATE;
+
         $cats  = CatsModel::getAllCats();
         return $this->render('create', ['model' => $model, 'cats' => $cats]);
     }

@@ -20,6 +20,15 @@ class PostForm extends Model
 
     public $_lastError = "";
 
+    /**
+     * 定义场景
+     * SCENARIOS_CREATE 创建
+     * SCENARIOS_CREATE 更新
+     */
+    const SCENARIOS_CREATE = 'create';
+    const SCENARIOS_UPDATE = 'update';
+
+
     public function rules()
     {
         return [
@@ -40,5 +49,14 @@ class PostForm extends Model
             'cat_id'  => Yii::t('post', 'Cate ID'),
             'tags'    => Yii::t('post', 'Tags'),
         ];
+    }
+
+    public function scenarios()
+    {
+        $scenarios = [
+            self::SCENARIOS_CREATE => ['title', 'content', 'label_img', 'cat_id', 'tags'],
+            self::SCENARIOS_UPDATE => ['title', 'content', 'label_img', 'cat_id', 'tags'],
+        ];
+        return array_merge(parent::scenarios(), $scenarios);
     }
 }
