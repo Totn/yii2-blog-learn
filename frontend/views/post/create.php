@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'content')->textinput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'tags')->textinput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'tags')->widget('common\widgets\tags\TagWidget') ?>
 
             <div class="form-group">
                 <?= Html::submitButton("发布", ['class' => 'btn btn-success']) ?>
