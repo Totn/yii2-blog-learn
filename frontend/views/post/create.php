@@ -19,7 +19,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'cat_id')->dropDownList($cats) ?>
 
-            <?= $form->field($model, 'label_img')->textinput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'label_img')->widget('common\widgets\file_upload\FileUpload', [
+                'config' => ['domain_url' => 'http://blog.dev'],
+            ]) ?>
+
+            <?= $form->field($model, 'content')->widget('common\widgets\ueditor\Ueditor', [
+                'options' => [
+
+                    // 'initialFrameWidth' => 850
+                    'initialFrameHeight' => 400,
+                    // 'toolbars' => [],
+                ],
+            ]) ?>
 
             <?= $form->field($model, 'content')->textinput(['maxlength' => true]) ?>
 

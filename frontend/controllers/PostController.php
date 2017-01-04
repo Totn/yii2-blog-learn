@@ -11,6 +11,27 @@ use common\models\CatsModel;
 class PostController extends BaseController
 {
 
+    public function actions()
+    {
+        return [
+            'upload' => [
+                'class' => 'common\widgets\file_upload\UploadAction',
+                'config' => [
+                    'imagePathFormat' => '/image/{yyyy}{mm}{dd}/{time}{rand:6}',
+
+                ],
+            ],
+            'ueditor' => [
+                'class' => 'common\widgets\ueditor\UeditorAction',
+                'config' => [
+                    'imageUrlPrefix' => "",
+                    'imagePathFormat' => '/image/{yyyy}{mm}/{time}{rand:6}',
+                ],
+            ],
+
+        ];
+    }
+
     /**
      * 文章列表
      * @return [type] [description]
