@@ -21,6 +21,7 @@ class PostController extends BaseController
 
                 ],
             ],
+
             'ueditor' => [
                 'class' => 'common\widgets\ueditor\UeditorAction',
                 'config' => [
@@ -49,8 +50,21 @@ class PostController extends BaseController
     public function actionCreate()
     {
         $model = new PostForm();
-        $model->setScenario = PostForm::SCENARIOS_CREATE;
+        $model->setScenario(PostForm::SCENARIOS_CREATE);
 
+        // 加载post数据，校验数据
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // 数据入库
+            if (!$model->create()) {
+                // 失败则标记错误
+                Yii::$app->session->setFlash('warning', $model->_lastError);
+            } else {
+                // 成功则跳转查看页
+                return $this->redirect(['post/view', 'id' => $model->id]);
+
+            }
+        }
+        
         $cats  = CatsModel::getAllCats();
         return $this->render('create', ['model' => $model, 'cats' => $cats]);
     }

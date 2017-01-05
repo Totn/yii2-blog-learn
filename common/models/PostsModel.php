@@ -21,6 +21,11 @@ use common\models\base\BaseModel;
  */
 class PostsModel extends BaseModel
 {
+
+    const IS_VALID = 1; // 发布
+    const NO_VALID = 0; // 未发布
+
+
     /**
      * @inheritdoc
      */
