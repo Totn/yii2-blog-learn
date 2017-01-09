@@ -5,11 +5,47 @@ use Yii;
 use frontend\controllers\base\BaseController;
 use frontend\models\PostForm;
 use common\models\CatsModel;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 /**
 * 文章控制器
 */
 class PostController extends BaseController
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create'],
+                'rules' => [
+                    // ? 表示任意身份
+                    [
+                        'actions' => ['view', 'index'],
+                        'allow' => true,
+                    ],
+                    // @ 表示某一角色(除了游客)
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    '*' => ['get'],
+                    'upload' => ['post'],
+                    'create' => ['get', 'post'],
+                ],
+            ],
+        ];
+    }
+
 
     public function actions()
     {
@@ -22,6 +58,7 @@ class PostController extends BaseController
                 ],
             ],
 
+            // 百度编辑器的组件
             'ueditor' => [
                 'class' => 'common\widgets\ueditor\UeditorAction',
                 'config' => [

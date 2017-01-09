@@ -52,15 +52,15 @@ class PostsModel extends BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('common', 'ID'),
-            'title' => Yii::t('common', 'Title'),
-            'summary' => Yii::t('common', 'Summary'),
-            'content' => Yii::t('common', 'Content'),
-            'label_img' => Yii::t('common', 'Label Img'),
-            'cat_id' => Yii::t('common', 'Cat ID'),
-            'user_id' => Yii::t('common', 'User ID'),
-            'user_name' => Yii::t('common', 'User Name'),
-            'is_valid' => Yii::t('common', 'Is Valid'),
+            'id'         => Yii::t('common', 'ID'),
+            'title'      => Yii::t('common', 'Title'),
+            'summary'    => Yii::t('common', 'Summary'),
+            'content'    => Yii::t('common', 'Content'),
+            'label_img'  => Yii::t('common', 'Label Img'),
+            'cat_id'     => Yii::t('common', 'Cat ID'),
+            'user_id'    => Yii::t('common', 'User ID'),
+            'user_name'  => Yii::t('common', 'User Name'),
+            'is_valid'   => Yii::t('common', 'Is Valid'),
             'created_at' => Yii::t('common', 'Created At'),
             'updated_at' => Yii::t('common', 'Updated At'),
         ];

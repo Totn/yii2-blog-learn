@@ -4,7 +4,8 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use common\models\PostsModel;
-
+use common\models\RelationPostTagsModel;
+use yii\db\Query;
 /**
 * 文章表单模型
 */
@@ -78,9 +79,11 @@ class PostForm extends Model
             $model = new PostsModel();
             $model->setAttributes($this->attributes);
             $model->summary = $this->_getSummary();
-            $model->user_id = Yii::$app->user->identity->id;
-            $model->user_name = Yii::$app->user->identity->username;
-            $model->is_valid = PostsModel::IS_VALID;
+
+            // 登陆之后才有Yii::$app->user, 需要先判断是否已登陆
+            $model->user_id    = Yii::$app->user->identity->id;
+            $model->user_name  = Yii::$app->user->identity->username;
+            $model->is_valid   = PostsModel::IS_VALID;
             $model->created_at = time();
             $model->updated_at = time();
 
@@ -89,7 +92,7 @@ class PostForm extends Model
             }
 
             $this->id = $model->id;
-            // 调用事件，以免文件过长
+            // 调用事件，以免方法或文件过长
             $data = array_merge($this->getAttributes(), $model->getAttributes());
             $this->_eventAfterCreate($data);
 
@@ -141,11 +144,38 @@ class PostForm extends Model
 
     /**
      * 添加标签
-     * @param  array $data   
+     * @param  array $event  事件的数据
      * @return [type]        [description]
      */
-    public function _eventAddTag($data)
+    public function _eventAddTag($event)
     {
-        # code...
+        $TagFM = new TagForm();
+        $TagFM->tags = $event->data['tags'];
+
+        // 判断标签有没有存在
+        $tagids = $TagFM->saveTags();
+
+        // 删除原来的关联，再保存新的
+        RelationPostTagsModel::deleteAll(['post_id' => $event->data['id']]);
+
+        // 批量保存文章和标签的关系
+        if (!empty($tagids)) {
+            
+            foreach ($tagids as $k => $id) {
+                $rows[$k]['post_id'] = $this->id;
+                $rows[$k]['tag_id'] = $id;
+            }
+
+            // 批量插入
+            $res = (new Query())->createCommand()
+            // ('table_name', ['volumn'], [data])
+            ->batchInsert(RelationPostTagsModel::tableName(), ['post_id', 'tag_id'], $rows)
+            ->execute();
+
+            if (!$res) {
+                throw new \Exception("保存文章与标签失败", 1);
+            }
+        }
+
     }
 }
