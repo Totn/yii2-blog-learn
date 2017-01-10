@@ -87,13 +87,14 @@ class PostController extends BaseController
     public function actionCreate()
     {
         $model = new PostForm();
+        // 设置场景，过滤字段
         $model->setScenario(PostForm::SCENARIOS_CREATE);
 
         // 加载post数据，校验数据
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             // 数据入库
             if (!$model->create()) {
-                // 失败则标记错误
+                // 失败则标记错误，这个错误会显示在前台页面上
                 Yii::$app->session->setFlash('warning', $model->_lastError);
             } else {
                 // 成功则跳转查看页
@@ -104,6 +105,20 @@ class PostController extends BaseController
         
         $cats  = CatsModel::getAllCats();
         return $this->render('create', ['model' => $model, 'cats' => $cats]);
+    }
+
+    /**
+     * 查看文章
+     * @param  integer $id 文章ID
+     * @return [type]      [description]
+     */
+    public function actionView($id = 0)
+    {
+        $model = new PostForm();
+
+        $data = $model->getViewById($id);
+
+        return $this->render('view', ['data' => $data]);
     }
 }
 

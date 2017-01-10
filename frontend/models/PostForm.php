@@ -6,6 +6,8 @@ use yii\base\Model;
 use common\models\PostsModel;
 use common\models\RelationPostTagsModel;
 use yii\db\Query;
+use yii\web\NotFoundHttpException;
+
 /**
 * 文章表单模型
 */
@@ -107,6 +109,29 @@ class PostForm extends Model
             return false;
             // 记录错误日志
         }
+    }
+
+    public function getViewById($id)
+    {
+        // 需要取出关联标签数据
+        // 两层关系 relate：关联的标签ID ==> 标签数据
+        // 自动调用 getRelate与getTag
+        $res = PostsModel::find()->with('relate.tag')
+        ->where(['id' => $id])->asArray()->one();
+
+        if (!$res) {
+            throw new NotFoundHttpException("文章不存在");
+        }
+        $res['tags'] = [];
+        if (isset($res['relate']) && !empty($res['relate'])) {
+            # code...
+            foreach ($res['relate'] as $val) {
+                $res['tags'][] = $val['tag']['tag_name'];
+            }
+
+        }
+        unset($res['relate']);
+        return $res;
     }
 
     /**

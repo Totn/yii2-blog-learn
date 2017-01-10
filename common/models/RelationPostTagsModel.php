@@ -22,6 +22,16 @@ class RelationPostTagsModel extends BaseModel
     }
 
     /**
+     * 标明关系
+     * @return [type] [description]
+     */
+    public function getTag()
+    {
+        // 技巧：靠近谁就使用谁的ID字段名
+        return $this->hasOne(TagsModel::className(), ['id' => 'tag_id']);
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()

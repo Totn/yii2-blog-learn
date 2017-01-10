@@ -35,6 +35,16 @@ class PostsModel extends BaseModel
     }
 
     /**
+     * 获取关联标签数据(id)
+     * @return [type] [description]
+     */
+    public function getRelate()
+    {
+        // 一对多关系
+        return $this->hasMany(RelationPostTagsModel::className(), ['post_id' => 'id']);
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
