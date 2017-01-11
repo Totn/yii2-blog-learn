@@ -45,6 +45,16 @@ class PostsModel extends BaseModel
     }
 
     /**
+     * 获取与Post_Extends表的关系
+     * @param  string $value [description]
+     * @return [type]        [description]
+     */
+    public function getExtend($value='')
+    {
+        return $this->hasOne(PostExtendsModel::className(),['post_id' => 'id']);
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()

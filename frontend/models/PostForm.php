@@ -116,7 +116,8 @@ class PostForm extends Model
         // 需要取出关联标签数据
         // 两层关系 relate：关联的标签ID ==> 标签数据
         // 自动调用 getRelate与getTag
-        $res = PostsModel::find()->with('relate.tag')
+        // 添加与extend的关系
+        $res = PostsModel::find()->with(['relate.tag', 'extend'])
         ->where(['id' => $id])->asArray()->one();
 
         if (!$res) {
