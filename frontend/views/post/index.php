@@ -1,3 +1,6 @@
 <?php
-echo '1111111111';
- ?>
+use frontend\widgets\post\PostWidget;
+use yii\base\Widget;
+?>
+
+<?=PostWidget::widget();?>

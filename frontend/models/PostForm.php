@@ -67,6 +67,21 @@ class PostForm extends Model
         return array_merge(parent::scenarios(), $scenarios);
     }
 
+    public static function getList($cond, $curPage = 1, $pageSize = 5, $orderBy = ['id' => SORT_DESC])
+    {
+        $model = new PostsModel();
+
+        // 组装查询语句
+        $select = ['id', 'title', 'summary', 'label_img', 'cat_id', 'user_id', 'user_name', 'is_valid', 'created_at', 'updated_at'];
+        $query = $model->find()
+            ->select($select)
+            ->where($cond)
+            ->with('relate.tag', 'extend')
+            ->orderBy($orderBy);
+
+        $res = $model->getPages($query, $curPage, $pageSize);
+    }
+
     /**
      * 文章创建
      * @return [type] [description]
