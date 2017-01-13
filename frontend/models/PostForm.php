@@ -67,6 +67,15 @@ class PostForm extends Model
         return array_merge(parent::scenarios(), $scenarios);
     }
 
+
+    /**
+     * 获取文章列表
+     * @param  array   $cond      查询条件
+     * @param  integer $curPage  当前页
+     * @param  integer $pageSize 每页数目
+     * @param  array   $orderBy  排序依据
+     * @return [type]            [description]
+     */
     public static function getList($cond, $curPage = 1, $pageSize = 5, $orderBy = ['id' => SORT_DESC])
     {
         $model = new PostsModel();
@@ -79,7 +88,35 @@ class PostForm extends Model
             ->with('relate.tag', 'extend')
             ->orderBy($orderBy);
 
+        // 获得分页数据
         $res = $model->getPages($query, $curPage, $pageSize);
+        // 格式化
+        $res['data'] = self::_formatList($res['data']);
+
+        return $res;
+    }
+
+    /**
+     * 格式化文章列表
+     * @param  array  $data 文章列表数据
+     * @return array 
+     */
+    public static function _formatList(array $data)
+    {
+        // 主要处理文章标签
+        foreach ($data as &$list) {
+
+            $list['tags'] = [];
+
+            if (isset($list['relate']) && !empty($list['realte'])) {
+                foreach ($list['relate'] as $val) {
+                    $list['tags'][] = $val['tag']['tag_name'];
+                }
+            }
+            unset($list['relate']);
+        }
+
+        return $data;
     }
 
     /**
