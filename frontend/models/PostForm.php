@@ -108,7 +108,7 @@ class PostForm extends Model
 
             $list['tags'] = [];
 
-            if (isset($list['relate']) && !empty($list['realte'])) {
+            if (isset($list['relate']) && !empty($list['relate'])) {
                 foreach ($list['relate'] as $val) {
                     $list['tags'][] = $val['tag']['tag_name'];
                 }
