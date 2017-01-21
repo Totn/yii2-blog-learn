@@ -36,7 +36,7 @@ use yii\widgets\LinkPager;
                     </span>
                     <?php // <!-- 显示summary -->  ?>
                     <p class="post-content"><?=$list['summary']?></p>
-                    <a href="<?=Url::to(['post/detail', 'id' => $list['id']])?>"><button class="btn btn-warning no-radius btn-sm pull-right">阅读全文</button></a>
+                    <a href="<?=Url::to(['post/view', 'id' => $list['id']])?>"><button class="btn btn-warning no-radius btn-sm pull-right">阅读全文</button></a>
                 </div>
             </div>
             <!-- Tags -->

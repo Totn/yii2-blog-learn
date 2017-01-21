@@ -5,4 +5,5 @@ return [
     	'small' => '/static/images/avatar/small.jpg',
     ],
     'default_label_img' => '/static/images/watercannons.jpg',
+    'upload_url' => '',
 ];
