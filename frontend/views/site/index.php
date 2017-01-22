@@ -9,7 +9,9 @@ use frontend\widgets\post\PostWidget;
 $this->title = 'BLOG-INDEX';
 ?>
 <div class="row">
-    <div class="col-lg-9"><?=BannerWidget::widget()?></div>
-    <div class="col-lg-3">You Are A Dreamer !</div>
-    <div class="col-lg-9"><?=PostWidget::widget()?></div>
+    <div class="col-lg-9">
+        <?=BannerWidget::widget()?>
+        <?=PostWidget::widget()?>
+    </div>
+    <div class="col-lg-3"><?=ChatWidget::widget()?></div>
 </div>
