@@ -22,7 +22,7 @@ use yii\helpers\Url;
                 <?php foreach ($data['feed'] as $list): ?>
                     <li class="media">
                         <div class="media-left"><a href="#" rel="author" data-original-title="" title="">
-                            <img width="30px" src="<?=$list['user']['avatar'] ?: \Yii::$app->params['avatar']['small']; ?>"/>
+                            <img width="30px" src="<?=$list['user']['avatar'] ?: \Yii::$app->params['avatar']['small']?>"/>
                             </a>
                         </div>
                         <div class="media-body" style="font-size: 12px;">

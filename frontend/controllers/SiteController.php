@@ -13,6 +13,8 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
+use frontend\models\FeedForm;
+
 use frontend\controllers\base\BaseController;
 /**
  * Site controller
@@ -45,6 +47,7 @@ class SiteController extends BaseController
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'add-feed' => ['post'],
                 ],
             ],
         ];
@@ -210,5 +213,23 @@ class SiteController extends BaseController
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * 接收留言信息
+     * @return [type] [description]
+     */
+    public function actionAddFeed()
+    {
+        $Feed = new FeedForm();
+        // 载入post数据
+        $Feed->content = Yii::$app->request->post('content');
+
+        if ($Feed->validate() && $Feed->create()) {
+            return json_encode(['status' => true]);
+        }
+        $fail = ['status' => false, 'msg' => $Feed->_lastError?: '留言发布失败！'];
+        // $fail['msg'] = $Feed->_lastError;
+        return json_encode($fail);
     }
 }

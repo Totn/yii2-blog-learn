@@ -55,4 +55,33 @@ class FeedForm extends Model
         return $list ?: [];
 
     }
+
+    /**
+     * 新增留言数据
+     * @return [type] [description]
+     */
+    public function create()
+    {
+        try {
+            // 引入表模型
+            $model = new FeedModel();
+
+            // 这里出错直接跳到catch
+            if (!Yii::$app->user->identity) {
+                throw new \Exception("尚未登陆！");
+                
+            }
+            $model->user_id = Yii::$app->user->identity->id;
+            $model->content = $this->content;
+            $model->created_at = time();
+
+            if (!$model->save()) {
+                throw new \Exception("留言数据保存失败");
+            }
+            return true;
+        } catch (\Exception $e) {            
+            $this->_lastError = $e->getMessage();
+            return false;
+        }
+    }
 }
