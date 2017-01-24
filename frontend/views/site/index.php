@@ -6,6 +6,8 @@ use yii\base\Widget;
 use frontend\widgets\chat\ChatWidget;
 use frontend\widgets\post\PostWidget;
 use frontend\widgets\hot\HotWidget;
+use frontend\widgets\tag\TagWidget;
+
 
 $this->title = 'BLOG-INDEX';
 ?>
@@ -21,5 +23,7 @@ $this->title = 'BLOG-INDEX';
         <?=ChatWidget::widget()?>
         <!-- 热门浏览 -->
         <?=HotWidget::widget()?>
+        <!-- 标签云 -->
+        <?=TagWidget::widget()?>
     </div>
 </div>
